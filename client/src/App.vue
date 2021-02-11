@@ -32,4 +32,29 @@ html, body {
     font-family: 'Barlow', sans-serif;
 }
 
+button {
+    background-color: white !important;
+    color: #0E0E0E !important;
+    border-radius: 5px !important;
+    border: none;
+    padding: 10px 20px !important;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px !important;
+    transition: ease-in-out 0.3s !important;
+    font-family: 'Barlow', sans-serif;
+}
+
+button:hover {
+    transition: ease-in-out 0.3s !important;
+    background-color: #0E0E0E !important;
+    color: white !important;
+}
+
+button:focus {
+    border: none !important;
+    outline: none !important;
+}
+
 </style>
