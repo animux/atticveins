@@ -59,10 +59,12 @@ export default {
                 h1 {
                     margin: 0;
                     line-height: 1;
+                    font-size: 4rem;
                     font-weight: 900;
                 }
                 h3 {
                     font-weight: 900;
+                    font-size: 2rem;
                 }
             }
             .img-fluid {

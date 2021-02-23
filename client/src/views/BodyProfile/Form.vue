@@ -7,61 +7,65 @@
             </div>
             <b-form>
                 <section v-if="steps == 1">
-                    <b-row>
-                        <b-col lg="6">
-                            <b-form-group id="current-weight" label="Current Weight" label-for="weight">
-                                <b-form-input id="current-weight-input" type="text" placeholder="Enter your current weight" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                        <b-col lg="6">
-                            <b-form-group id="desired-weight" label="Desired Weight" label-for="desired-weight">
-                                <b-form-input id="desired-weight-input" type="text" placeholder="Enter your desired weight" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                    </b-row>
-                    <b-form-group id="height" label="Height" label-for="height">
-                        <b-form-input id="height-input" type="text" placeholder="Enter your height" required></b-form-input>
-                    </b-form-group>
-                    <b-form-group id="name" label="Activity Level" label-for="name">
-                        <b-form-select :options="form.activityOption"></b-form-select>
-                    </b-form-group>
-                    <b-row>
-                        <b-col lg="6">
-                            <b-form-group id="name" label="Neck Size" label-for="neck-size">
-                                <b-form-input id="neck-size-input" type="text" placeholder="Enter your neck size" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                        <b-col lg="6">
-                            <b-form-group id="name" label="Waist Size" label-for="waist-size">
-                                <b-form-input id="waist-size-input" type="text" placeholder="Enter your weist size" required></b-form-input>
-                            </b-form-group>
-                        </b-col>
-                    </b-row>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Current Weight" id='current_weight' required />
+                        <label class="form__label">Current Weight</label>
+                    </div>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Desired Weight" id='desired_weight' required />
+                        <label class="form__label">Desired Weight</label>
+                    </div>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Height" id='height' required />
+                        <label class="form__label">Height</label>
+                    </div>
+                    <div class="form__group field">
+                        <select class="form__field" id="acitivity_level" v-model="form.activity.selected" required>
+                            <option v-for="(option, index) in form.activity.options" :key="index">{{ option.text }}</option>
+                        </select>
+                        <label class="form__label">Activity Level</label>
+                    </div>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Neck Size" id='neck_size' required />
+                        <label class="form__label">Neck Size</label>
+                    </div>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Waist Size" id='waist_size' required />
+                        <label class="form__label">Waist Size</label>
+                    </div>
 
-
-                    <b-form-group id="name" label="Medical Issues (if any)" label-for="medical-issue">
-                        <b-form-textarea
-                            id="textarea"
-                            placeholder="Enter your medical issue (if any)"
-                            rows="3"
-                            max-rows="6"
-                        ></b-form-textarea>
-                    </b-form-group>
+                    <div class="form__group field">
+                        <textarea id="medical_issues" class="form__field" placeholder="Medical Issues" rows="3" required />
+                        <label class="form__label">Medical Issues (if any)</label>
+                    </div>
                 </section>
 
                 <section v-if="steps == 2">
-                    <b-form-group id="name" label="Name" label-for="name">
-                        <b-form-input id="name-input" type="text" placeholder="Enter your name" required></b-form-input>
-                    </b-form-group>
-                    <b-form-group id="phone-number" label="Phone Number" label-for="phone-number">
-                        <b-form-input id="phone-number-input" type="text" placeholder="Enter your phone number" required></b-form-input>
-                    </b-form-group>
-                    <b-form-group id="email" label="Email" label-for="email">
-                        <b-form-input id="email-input" type="text" placeholder="Enter your email" required></b-form-input>
-                    </b-form-group>
-                    <b-form-group id="age" label="Age" label-for="age">
-                        <b-form-input id="age-input" type="text" placeholder="Enter your age" required></b-form-input>
-                    </b-form-group>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Name" id="name" required />
+                        <label class="form__label">Name</label>
+                    </div>
+                    <div class="form__group field">
+                        <select class="form__field" id="gender" required>
+                            <option selected>Please select your gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                        </select>
+                        <label class="form__label">Gender</label>
+
+                    </div>
+                    <div class="form__group field">
+                        <input type="date" class="form__field" placeholder="Date of Birth" id="dob" required />
+                        <label class="form__label">Date of birth</label>
+                    </div>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Email" id="email" required />
+                        <label class="form__label">Email</label>
+                    </div>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Phone Number" id="phone-number" required />
+                        <label class="form__label">Phone Number</label>
+                    </div>
                 </section>
 
                 <div class="buttons">
@@ -83,13 +87,16 @@ export default {
             totalsteps: 2,
             steps: 1,
             form: {     
-                activityOption: [
-                    { value: null, text: 'Please select an option' },
-                    { value: '1', text: 'Sedentary' },
-                    { value: '2', text: 'Workout 1 or 2 days a week' },
-                    { value: '3', text: 'Active workout 4 to 5  days a week' },
-                    { value: '4', text: 'Intense workout every week' },
-                ],
+                activity: {
+                    selected: null,
+                    options: [
+                        { value: null, text: 'Please select an option' },
+                        { value: '1', text: 'Sedentary' },
+                        { value: '2', text: 'Workout 1 or 2 days a week' },
+                        { value: '3', text: 'Active workout 4 to 5  days a week' },
+                        { value: '4', text: 'Intense workout every week' },      
+                    ]
+                },
                 data: {}
             }
         }
@@ -109,6 +116,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+    $primary: #B12E21;
+    $secondary: #C34632;
+    $white: #fff;
+    $gray: #9b9b9b;
     #form {
         width: 50%;
         margin: 0 auto;
@@ -120,16 +131,22 @@ export default {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             h3 {
-                border-bottom: 1px solid gray;
-                padding: 10px 0;
+                border-bottom: 3px solid gray;
+                padding: 15px 0;
                 transition: ease-in 0.3s;
                 margin-bottom: 20px;
                 text-transform: uppercase;
             }
             .active {
-                color: white;
+                border-width: 3px;
+                border-image: linear-gradient(to right, $primary,$secondary);
+                border-image-slice: 1;
+                background: -webkit-linear-gradient($secondary, $primary);
+                -webkit-background-clip: text;
+                background-clip: $white;
+                -webkit-text-fill-color: transparent;
                 transition: ease-out 0.3s;
-                border-bottom: 1px solid white;
+                border-bottom: 3px solid;
             }
         }
         form {
@@ -137,9 +154,94 @@ export default {
             border-radius: 5px;
             box-shadow: 0 8px 4em -6px #090909;
             padding: 40px 40px;
+            .form__group {
+                position: relative;
+                padding: 15px 0 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+
+            .form__field {
+                font-family: 'Barlow', sans-serif, !important;
+                width: 100%;
+                border: 0;
+                border-bottom: 2px solid $gray;
+                outline: 0;
+                font-size: 1rem;
+                color: $white;
+                padding: 15px 0;
+                background: transparent;
+                transition: border-color 0.2s;
+
+                &::placeholder {
+                    color: transparent;
+                }
+
+                &:placeholder-shown ~ .form__label {
+                    font-size: 1.3rem;
+                    cursor: text;
+                    top: 10px;
+                }
+            }
+
+            .form__label {
+                position: absolute;
+                top: 0;
+                display: block;
+                transition: 0.2s;
+                font-size: 0.7rem;
+                color: $gray;
+            }
+
+            .form__field:focus {
+                ~ .form__label {
+                    position: absolute;
+                    top: 0;
+                    display: block;
+                    transition: 0.2s;
+                    font-size: 1rem;
+                    color: $primary;
+                    font-weight:700;    
+                }
+                padding-bottom: 5px;  
+                font-weight: 700;
+                border-width: 3px;
+                border-image: linear-gradient(to right, $primary,$secondary);
+                border-image-slice: 1;
+            }
+            /* reset input */
+            .form__field, select {
+                &:required,&:invalid { box-shadow:none; }
+            }
+            
+            select {
+                background: transparent;
+                outline: 0;
+                border: 0;
+                border-bottom: 2px solid $gray;
+                font-size: 1rem;
+                transition: border-color 0.2s;
+                option {
+                    color: black;
+                }
+                // padding: 15px 0;
+            }
+            select:focus {
+                outline: 0 !important;
+                padding-bottom: 5px;
+                font-weight: 700;
+                border-width: 3px;
+                border-image: linear-gradient(to right, $primary,$secondary);
+                border-image-slice: 1;
+            }
         }
         .buttons {
             text-align: center;
+        }
+    }
+    @media screen and (max-width: 760px) {
+        #form {
+            width: 100%;
         }
     }
 </style>

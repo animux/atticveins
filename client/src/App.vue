@@ -20,6 +20,8 @@ export default {
 </script>
 
 <style lang="scss">
+$primary: #B12E21;
+$secondary: #C34632;
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,900;1,900&display=swap');
 
 html, body {
@@ -33,23 +35,23 @@ html, body {
 }
 
 button {
-    background-color: white !important;
-    color: #0E0E0E !important;
-    border-radius: 5px !important;
-    border: none;
-    padding: 10px 20px !important;
+    background: transparent !important;
+    color: white !important;
+    border-radius: 15px !important;
+    border: 2px solid white !important;
+    padding: 8px 15px !important;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     margin-right: 10px !important;
+    margin-top: 15px !important;
     transition: ease-in-out 0.3s !important;
     font-family: 'Barlow', sans-serif;
 }
 
 button:hover {
     transition: ease-in-out 0.3s !important;
-    background-color: #0E0E0E !important;
-    color: white !important;
+    background-color: white !important;
+    color: black !important;
 }
 
 button:focus {
