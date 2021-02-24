@@ -209,11 +209,9 @@ export default {
                 border-image: linear-gradient(to right, $primary,$secondary);
                 border-image-slice: 1;
             }
-            /* reset input */
             .form__field, select {
                 &:required,&:invalid { box-shadow:none; }
-            }
-            
+            }            
             select {
                 background: transparent;
                 outline: 0;
@@ -224,7 +222,6 @@ export default {
                 option {
                     color: black;
                 }
-                // padding: 15px 0;
             }
             select:focus {
                 outline: 0 !important;
