@@ -7,65 +7,21 @@
             </div>
             <b-form>
                 <section v-if="steps == 1">
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Current Weight" id='current_weight' required />
-                        <label class="form__label">Current Weight</label>
-                    </div>
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Desired Weight" id='desired_weight' required />
-                        <label class="form__label">Desired Weight</label>
-                    </div>
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Height" id='height' required />
-                        <label class="form__label">Height</label>
-                    </div>
-                    <div class="form__group field">
-                        <select class="form__field" id="acitivity_level" v-model="form.activity.selected" required>
-                            <option v-for="(option, index) in form.activity.options" :key="index">{{ option.text }}</option>
-                        </select>
-                        <label class="form__label">Activity Level</label>
-                    </div>
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Neck Size" id='neck_size' required />
-                        <label class="form__label">Neck Size</label>
-                    </div>
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Waist Size" id='waist_size' required />
-                        <label class="form__label">Waist Size</label>
-                    </div>
-
-                    <div class="form__group field">
-                        <textarea id="medical_issues" class="form__field" placeholder="Medical Issues" rows="3" required />
-                        <label class="form__label">Medical Issues (if any)</label>
-                    </div>
+                    <Form type="input" placeholder="Current Weight" _id="current_weight" />
+                    <Form type="input" placeholder="Desired Weight" _id="desired_weight" />
+                    <Form type="input" placeholder="Height" _id="height" />
+                    <Form type="select" :data="form.activity" v-model="form.activity.selected" placeholder="Activity Level" _id="activity_level" />
+                    <Form type="input" placeholder="Neck Size" _id="neck_size" />
+                    <Form type="input" placeholder="Waist Size" _id="waist_size" />
+                    <Form type="textarea" placeholder="Medical Issues (if any)" _id="medical_issues" />
                 </section>
 
                 <section v-if="steps == 2">
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Name" id="name" required />
-                        <label class="form__label">Name</label>
-                    </div>
-                    <div class="form__group field">
-                        <select class="form__field" id="gender" required>
-                            <option selected>Please select your gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                        </select>
-                        <label class="form__label">Gender</label>
-
-                    </div>
-                    <div class="form__group field">
-                        <input type="date" class="form__field" placeholder="Date of Birth" id="dob" required />
-                        <label class="form__label">Date of birth</label>
-                    </div>
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Email" id="email" required />
-                        <label class="form__label">Email</label>
-                    </div>
-                    <div class="form__group field">
-                        <input type="input" class="form__field" placeholder="Phone Number" id="phone-number" required />
-                        <label class="form__label">Phone Number</label>
-                    </div>
+                    <Form type="input" placeholder="Name" _id="name" />
+                    <Form type="select" :data="{ options: [ { value: null, text: 'Please select a gender' }, { value: 0, text: 'Male' },  { value: 1, text: 'Female' } ] }" placeholder="Gender" _id="gender" />
+                    <Form type="date" placeholder="Date of Birth" _id="dob" />
+                    <Form type="input" placeholder="Email" _id="email" />
+                    <Form type="input" placeholder="Phone Number" _id="phone_number" />
                 </section>
 
                 <div class="buttons">
@@ -80,8 +36,13 @@
 </template>
 
 <script>
+import Form from '@/components/Form.vue';
+
 export default {
-    name: 'Form',
+    name: 'BodyProfile-Form',
+    components: {
+        Form
+    },
     data() {
         return {
             totalsteps: 2,
@@ -154,83 +115,6 @@ export default {
             border-radius: 5px;
             box-shadow: 0 8px 4em -6px #090909;
             padding: 40px 40px;
-            .form__group {
-                position: relative;
-                padding: 15px 0 0;
-                margin-top: 10px;
-                width: 100%;
-            }
-
-            .form__field {
-                font-family: 'Barlow', sans-serif, !important;
-                width: 100%;
-                border: 0;
-                border-bottom: 2px solid $gray;
-                outline: 0;
-                font-size: 1rem;
-                color: $white;
-                padding: 15px 0;
-                background: transparent;
-                transition: border-color 0.2s;
-
-                &::placeholder {
-                    color: transparent;
-                }
-
-                &:placeholder-shown ~ .form__label {
-                    font-size: 1.3rem;
-                    cursor: text;
-                    top: 10px;
-                }
-            }
-
-            .form__label {
-                position: absolute;
-                top: 0;
-                display: block;
-                transition: 0.2s;
-                font-size: 0.7rem;
-                color: $gray;
-            }
-
-            .form__field:focus {
-                ~ .form__label {
-                    position: absolute;
-                    top: 0;
-                    display: block;
-                    transition: 0.2s;
-                    font-size: 1rem;
-                    color: $primary;
-                    font-weight:700;    
-                }
-                padding-bottom: 5px;  
-                font-weight: 700;
-                border-width: 3px;
-                border-image: linear-gradient(to right, $primary,$secondary);
-                border-image-slice: 1;
-            }
-            .form__field, select {
-                &:required,&:invalid { box-shadow:none; }
-            }            
-            select {
-                background: transparent;
-                outline: 0;
-                border: 0;
-                border-bottom: 2px solid $gray;
-                font-size: 1rem;
-                transition: border-color 0.2s;
-                option {
-                    color: black;
-                }
-            }
-            select:focus {
-                outline: 0 !important;
-                padding-bottom: 5px;
-                font-weight: 700;
-                border-width: 3px;
-                border-image: linear-gradient(to right, $primary,$secondary);
-                border-image-slice: 1;
-            }
         }
         .buttons {
             text-align: center;
