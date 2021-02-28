@@ -7,23 +7,23 @@
             </div>
             <b-form>
                 <section v-if="steps == 1">
-                    <Form type="input" placeholder="Current Weight" _id="current_weight" />
-                    <Form type="input" placeholder="Desired Weight" _id="desired_weight" />
-                    <Form type="input" placeholder="Height" _id="height" />
-                    <Form type="select" :data="form.activity" v-model="form.activity.selected" placeholder="Activity Level" _id="activity_level" />
-                    <Form type="input" placeholder="Neck Size" _id="neck_size" />
-                    <Form type="input" placeholder="Waist Size" _id="waist_size" />
-                    <Form type="textarea" placeholder="Medical Issues (if any)" _id="medical_issues" />
+                    <Form type="input" @data="value =>  { form.data.current_weight = value }" placeholder="Current Weight" _id="current_weight" />
+                    <Form type="input" @data="value =>  { form.data.desired_weight = value }" placeholder="Desired Weight" _id="desired_weight" />
+                    <Form type="input" @data="value =>  { form.data.height = value }" placeholder="Height" _id="height" />
+                    <Form type="select" @data="value => { form.data.acitivtiy = value }" :data="form.activity.options" v-model="form.activity.selected" placeholder="Activity Level" _id="activity_level" />
+                    <Form type="input" @data="value =>  { form.data.neck_size = value }" placeholder="Neck Size" _id="neck_size" />
+                    <Form type="input" @data="value =>  { form.data.waist_size = value }" placeholder="Waist Size" _id="waist_size" />
+                    <Form type="textarea" @data="value =>  { form.data.medical_issues = value }" placeholder="Medical Issues (if any)" _id="medical_issues" />
                 </section>
 
                 <section v-if="steps == 2">
-                    <Form type="input" placeholder="Name" _id="name" />
-                    <Form type="select" :data="{ options: [ { value: null, text: 'Please select a gender' }, { value: 0, text: 'Male' },  { value: 1, text: 'Female' } ] }" placeholder="Gender" _id="gender" />
-                    <Form type="date" placeholder="Date of Birth" _id="dob" />
-                    <Form type="input" placeholder="Email" _id="email" />
-                    <Form type="input" placeholder="Phone Number" _id="phone_number" />
+                    <Form type="input" @data="value =>  { form.data.name = value }" placeholder="Name" _id="name" />
+                    <Form type="select" @data="value =>  { form.data.gender = value }" :data="form.gender.options" placeholder="Gender" _id="gender" />
+                    <Form type="date" @data="value =>  { form.data.dob = value }" placeholder="Date of Birth" _id="dob" />
+                    <Form type="input" @data="value =>  { form.data.email = value }" placeholder="Email" _id="email" />
+                    <Form type="input" @data="value =>  { form.data.phone_number = value }" placeholder="Phone Number" _id="phone_number" />
                 </section>
-
+                <h3>{{ form.data }}</h3>
                 <div class="buttons">
                     <button v-if="steps != 1" @click.prevent="prevStep()">Previous Step</button>
                     <button v-if="steps != totalsteps" @click.prevent="nextStep()">Next Step</button>
@@ -37,19 +37,20 @@
 
 <script>
 import Form from '@/components/Form.vue';
+import { mapGetters } from 'vuex';
 
 export default {
     name: 'BodyProfile-Form',
     components: {
         Form
     },
+    computed: mapGetters('bodyprofile', ['formData']),
     data() {
         return {
             totalsteps: 2,
             steps: 1,
             form: {     
                 activity: {
-                    selected: null,
                     options: [
                         { value: null, text: 'Please select an option' },
                         { value: '1', text: 'Sedentary' },
@@ -58,7 +59,27 @@ export default {
                         { value: '4', text: 'Intense workout every week' },      
                     ]
                 },
-                data: {}
+                gender: {
+                    options: [
+                        { value: null, text: 'Please select an option' },
+                        { value: 0, text: 'Male' },
+                        { value: 1, text: 'Female' }
+                    ]
+                },
+                data: {
+                    current_weight: null,
+                    desired_weight: null,
+                    height: null,
+                    activity: null,
+                    neck_size: null,
+                    waist_size: null,
+                    medical_issues: null,
+                    name: null,
+                    gender: null,
+                    dob: null,
+                    email: null,
+                    phone_number: null
+                }
             }
         }
     },
@@ -71,6 +92,9 @@ export default {
         },
         submit: function() {
             return;
+        },
+        FormData: function(value) {
+            console.log(value);
         }
     }
 }

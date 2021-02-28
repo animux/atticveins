@@ -1,10 +1,10 @@
 <template>
     <div class="form__group field">
-        <input v-if="type == 'input'" class="form__field" :placeholder="placeholder" :id="_id" required />
-        <input v-if="type == 'date'" type="date" class="form__field" :placeholder="placeholder" :id="_id" required />
-        <textarea v-if="type == 'textarea'" class="form__field" :placeholder="placeholder" :id="_id" rows="3" required />
-        <select v-if="type == 'select'" class="form__field">
-            <option v-for="(option, index) in data.options" :key="index">{{ option.text }}</option>
+        <input v-if="type == 'input'" v-model="inputData" @change="emitToParent" class="form__field" :placeholder="placeholder" :id="_id" required />
+        <input v-if="type == 'date'" type="date" v-model="inputData" @change="emitToParent" class="form__field" :placeholder="placeholder" :id="_id" required />
+        <textarea v-if="type == 'textarea'" class="form__field" v-model="inputData" @change="emitToParent" :placeholder="placeholder" :id="_id" rows="3" required />
+        <select v-if="type == 'select'" class="form__field" v-model="inputData" @change="emitToParent">
+            <option v-for="(option, index) in data" :key="index">{{ option.text }}</option>
         </select>
         <label class="form__label">{{ placeholder }}</label>
     </div>
@@ -17,7 +17,17 @@ export default {
         type: String,
         placeholder: String,
         _id: String,
-        data: Object
+        data: Array
+    },
+    data() {
+        return {
+            inputData: null
+        }
+    },
+    methods: {
+        emitToParent() {
+            this.$emit('data', this.inputData)
+        }
     }
 }
 </script>

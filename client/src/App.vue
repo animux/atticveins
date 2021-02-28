@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <div v-if="value"><Spinner /></div>
         <Navbar />
         <router-view />
         <Footer />
@@ -7,15 +8,20 @@
 </template>
 
 <script>
-import Navbar from '@/ui/Navbar.vue';
-import Footer from '@/ui/Footer.vue';
+import Navbar from '@/components/ui/Navbar.vue';
+import Footer from '@/components/ui/Footer.vue';
+import Spinner from '@/components/ui/Spinner.vue';
+
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    Footer
-  }
+    Footer,
+    Spinner
+  },
+  computed: mapGetters('spinner', ['value'])
 }
 </script>
 
