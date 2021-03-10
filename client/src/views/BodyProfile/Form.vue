@@ -1,11 +1,12 @@
 <template>
     <div id="form">
         <b-container>
+            <FormErrors :data="form.data" @errors="value => { errors = value }" ref="formError" />
             <div class="title">
                 <h3 v-bind:class="{ active: this.steps == 1 }">About your Body</h3>
                 <h3 v-bind:class="{ active: this.steps == 2 }">About yourself</h3>
             </div>
-            <b-form>
+            <b-form @submit="submit()">
                 <section v-if="steps == 1">
                     <Form type="input" @data="value =>  { form.data.current_weight = value }" placeholder="Current Weight" _id="current_weight" />
                     <Form type="input" @data="value =>  { form.data.desired_weight = value }" placeholder="Desired Weight" _id="desired_weight" />
@@ -23,7 +24,7 @@
                     <Form type="input" @data="value =>  { form.data.email = value }" placeholder="Email" _id="email" />
                     <Form type="input" @data="value =>  { form.data.phone_number = value }" placeholder="Phone Number" _id="phone_number" />
                 </section>
-                <h3>{{ form.data }}</h3>
+                
                 <div class="buttons">
                     <button v-if="steps != 1" @click.prevent="prevStep()">Previous Step</button>
                     <button v-if="steps != totalsteps" @click.prevent="nextStep()">Next Step</button>
@@ -36,17 +37,18 @@
 </template>
 
 <script>
+// import FormValidation from '@/utisl/FormValidation.js';
+import FormErrors from './FormErrors.vue';
 import Form from '@/components/Form.vue';
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'BodyProfile-Form',
-    components: {
-        Form
-    },
+    components: { Form, FormErrors },
     computed: mapGetters('bodyprofile', ['formData']),
     data() {
         return {
+            error: [],
             totalsteps: 2,
             steps: 1,
             form: {     
@@ -84,17 +86,29 @@ export default {
         }
     },
     methods: {
+        ...mapActions('bodyprofile', ['setFormData']),
         nextStep: function() {
             this.steps++;
         },
         prevStep: function() {
             this.steps--
         },
-        submit: function() {
-            return;
-        },
         FormData: function(value) {
             console.log(value);
+        },
+        submit: function() {
+            // let validate = new FormValidation(this.data);
+            // if (validate) {
+
+            // } else {
+                
+            // }
+            if (this.$refs.formError.checkErrors()) return;
+            else {
+                this.setFormData(this.form.data);
+            }
+            // this.$refs.formError.checkErrors();
+            console.log(this.formData);
         }
     }
 }
@@ -137,7 +151,7 @@ export default {
         form {
             background-color: #1A1A1A;
             border-radius: 5px;
-            box-shadow: 0 8px 4em -6px #090909;
+            box-shadow: 0px 10px 1em 0.5em black;
             padding: 40px 40px;
         }
         .buttons {

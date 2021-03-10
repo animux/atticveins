@@ -23,8 +23,8 @@ export default {
     mutations: {
         setData: (state, payload) => state.form.data = payload
     },
-    action: {
-        setData: (state, data) => state.commit('setData', data)
+    actions: {
+        setFormData: (state, data) => state.commit('setData', data)
     },
     namespaced: true
 }
